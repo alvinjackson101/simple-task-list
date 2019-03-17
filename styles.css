@@ -1,6 +1,15 @@
 html, body {
-    margin-top: 125px;
-    height: 100%;
+    margin-top: 100px;
+    height: 80%;
+}
+
+@media (min-width: 1200px){
+
+  html, body{
+
+    margin-left: 400px;
+    margin-right: 400px;
+  }
 }
 
 img{
@@ -22,7 +31,7 @@ img{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #a6c5fe;
+  color: #b8b8b8;
 
 }
 
@@ -41,14 +50,14 @@ img{
 
   border-radius: 0px 100px 100px 0px;
   border-color: #e7e7e7;
+
 }
 
 #task-form{
-
   display: flex;
+  align-self: center;
   justify-content: center;
-  align-items: center;
-  width: 100%;
+
 
 }
 
@@ -59,9 +68,12 @@ input.form-control{
     border-color: #e7e7e7;
     height: 42px;
     margin-top: 14px;
+    font-weight: lighter;
+
 }
 
 .input-group-append{
 
   margin-top: 14px;
+
 }
