@@ -1,5 +1,5 @@
 html, body {
-    margin-top: 150px;
+    margin-top: 125px;
     height: 100%;
 }
 
@@ -26,51 +26,42 @@ img{
 
 }
 
-.container{
-
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-
-}
-
 #button-addon2{ 
 
   color: #fff;
   background-color: #5086ec;
   font-size: 14px;
-  margin-top: 4px;
-  margin-bottom: 4px;
-  margin-left: 24px;
   border-radius: 0px 100px 100px 0px;
+  display: flex;
+  border-color: #e7e7e7;
+  
+}
 
+.input-group{
+
+  border-radius: 0px 100px 100px 0px;
+  border-color: #e7e7e7;
 }
 
 #task-form{
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+input.form-control{
+
+    border-radius: 100px 0px 0px 100px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-
+    border-color: #e7e7e7;
+    height: 42px;
+    margin-top: 14px;
 }
 
-.input-task{
+.input-group-append{
 
-  width: 60%;
-  border: 1px solid #e7e7e7; 
-  border-radius: 100px;
-
-}
-
-.task{
-
-  border: none;
-
-}
-
-input{
-
-  width:80%;
+  margin-top: 14px;
 }

@@ -30,16 +30,15 @@
 
       <div class="container"> 
 
-        <div class="row col-12 justify-content-center justify-content-sm justify-content-center-md justify-content-center-lg justify-content-center-xl align-items-centerl">
+        <div class="task-row col-12 justify-content-center justify-content-sm justify-content-center-md justify-content-center-lg justify-content-center-xl align-items-center align-items-center-sm align-items-center-lg align-items-center-md align-items-center-xl">
 
           <form id="task-form" action="" method="post">
 
-            <div class="input-task col-12 justify-content-center justify-content-sm justify-content-center-md justify-content-center-lg justify-content-center-xl align-items-center align-items-center-sm align-items-center-md align-items-center-lg align-items-center-xl">
-
-              <input type="text" class="task" placeholder="Add task...">
-
-              <button class="btn" type="button" id="button-addon2">ADD</button>
-
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Add a task..." aria-label="task" aria-describedby="button-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2"><i class="fas fa-plus"></i></button>
+              </div>
             </div>
 
           </form>
