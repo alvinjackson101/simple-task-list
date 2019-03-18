@@ -1,13 +1,11 @@
-//some sample data
-const guestsData = [
-   { firstname: "Andy", lastname:"Jack", email: "andy@cool.com", notes:"hello"},
-   { firstname: "Mike", lastname:"Larry", email: "mike@cool.com", notes:"hello world"}
-];
+
 
 const list = document.getElementById('listContainer');
 
 //the database reference
 let db; 
+
+var counter = 0;
 
 //initializes the database
 function initDatabase() {
@@ -25,7 +23,7 @@ function initDatabase() {
 	}
 
    //attempt to open the database
-	let request = window.indexedDB.open("guest", 1);
+	let request = window.indexedDB.open('task', 1);
 	request.onerror = function(event) {
 		console.log(event);
 	};
@@ -33,70 +31,69 @@ function initDatabase() {
    //map db to the opening of a database
 	request.onsuccess = function(event) { 
 		db = request.result;
-		console.log("success: " + db);
+		console.log('success: ' + db);
+      renderTask();
 
 	};
 
    //if no database, create one and fill it with data
 	request.onupgradeneeded = function(event) {
       var db = event.target.result;
-      var objectStore = db.createObjectStore("guest", {keyPath: "email"});
-      
-      for (var i in guestsData) {
-         objectStore.add(guestsData[i]);
-      }
+      var objectStore = db.createObjectStore('task') ;
+
    }
 }
 
 //adds a record as entered in the form
 function add() {
-	//get a reference to the fields in html
-	let task = document.querySelector("#task").value;
 
-	//alert(id + name + email + age);
+	//get a reference to the fields in html
+	let task = document.querySelector('#taskinput').value;
+   console.log (task); 
+
+	//alert(id + name + taskinput + age);
    
    //create a transaction and attempt to add data
-	var request = db.transaction(["task"], "readwrite")
-	.objectStore("task")
-	.add({ task: task});
+	var request = db.transaction([ 'task' ], 'readwrite')
+	.objectStore('task')
+	.add({ task: task, id:new Date().getTime()});
 
    //when successfully added to the database
 	request.onsuccess = function(event) {
-		alert(`${task} has been added to your database - UPDATE.`);
+		renderTask();
 	};
 
    //when not successfully added to the database
 	request.onerror = function(event) {
-	alert(`Unable to add data\r\n${email} is already in your database! `);
-	}
+	console.log(`Unable to add data\r\n${taskinput} is already on your list! `);
+	};
 }
 
 //not used in code example
 //reads one record by id
-function read() {
+function renderTask() {
+   list.innerHTML='';
    //get a transaction
-   var transaction = db.transaction(["task"]);
-   
-   //create the object store
-   var objectStore = transaction.objectStore("task");
+   var objectStore = db.transaction("task").objectStore("task");
 
-   //get the data by id
-   var request = objectStore.get("00-03");
-   
-   request.onerror = function(event) {
-      alert("Unable to retrieve daa from database!");
-   };
-   
-   request.onsuccess = function(event) {
-      // Do something with the request.result!
-      if(request.result) {
-         alert(" task " + cursor.value.task + ");
-      }
+//creates a cursor which iterates through each record
+   objectStore.openCursor().onsuccess = function(event) {
+      var cursor = event.target.result;
       
-      else {
-         alert("Task couldn't be found in your database!");
+      if (cursor) {
+         // alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", Email: " + cursor.value.email);
+         var node = document.createElement("LI");                 // Create a <li> node
+         var textnode = document.createTextNode(cursor.value.task );         // Create a text node
+         var imagenode = document.createElement("IMG");
+         imagenode.src = 'delte-icon.png';
+         node.appendChild(textnode);                              // Append the text to <li>
+         node.appendChild(imagenode);
+         list.appendChild(node);
+         cursor.continue();
+
       }
-   };
+   };  
+   
 }
 
 //reads all the data in the database
@@ -109,7 +106,7 @@ function readAll() {
       var cursor = event.target.result;
       
       if (cursor) {
-         // alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", Email: " + cursor.value.email);
+         // alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", taskinput: " + cursor.value.taskinput);
          var node = document.createElement("LI");                 // Create a <li> node
          var textnode = document.createTextNode(cursor.value.task );         // Create a text node
          node.appendChild(textnode);                              // Append the text to <li>
@@ -121,16 +118,12 @@ function readAll() {
 }
 
 
-//deletes a record by id
-function remove() {
+function remove(item) {
 	let delid = document.querySelector("#delid").value;
-   var request = db.transaction(["guest"], "readwrite")
-   .objectStore("guest")
+   var request = db.transaction(['task'], 'readwrite')
+   .objectStore('task')
    .delete(delid);
    
-   request.onsuccess = function(event) {
-      alert("Entry has been removed from your database.");
-   };
-}
+  }
 
 initDatabase();

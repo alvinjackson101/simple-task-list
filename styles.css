@@ -77,3 +77,13 @@ input.form-control{
   margin-top: 14px;
 
 }
+
+#listContainer{
+
+  color: #5086ec;
+  border: 1px;
+  border-color: #e7e7e7;
+  border-radius: 0px 100px 100px 0px;
+
+
+}
