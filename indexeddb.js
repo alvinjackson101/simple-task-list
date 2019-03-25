@@ -46,17 +46,14 @@ function initDatabase() {
 
 //adds a record as entered in the form
 function add() {
-
 	//get a reference to the fields in html
-	let task = document.querySelector('#taskinput').value;
-   console.log (task); 
-
+	let taskItem = document.querySelector('#taskinput').value;
 	//alert(id + name + taskinput + age);
    
    //create a transaction and attempt to add data
 	var request = db.transaction([ 'task' ], 'readwrite')
 	.objectStore('task')
-	.add({ task: task, id:new Date().getTime()});
+	.add({ task: taskItem, id:new Date().getTime()});
 
    //when successfully added to the database
 	request.onsuccess = function(event) {
@@ -65,7 +62,7 @@ function add() {
 
    //when not successfully added to the database
 	request.onerror = function(event) {
-	console.log(`Unable to add data\r\n${taskinput} is already on your list! `);
+	  console.log(`Unable to add data\r\n${taskinput} is already on your list! `);
 	};
 }
 
