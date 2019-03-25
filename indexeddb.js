@@ -39,7 +39,7 @@ function initDatabase() {
    //if no database, create one and fill it with data
 	request.onupgradeneeded = function(event) {
       var db = event.target.result;
-      var objectStore = db.createObjectStore('task') ;
+      var objectStore = db.createObjectStore('task', {keyPath: "id", autoIncrement: true}) ;
 
    }
 }
@@ -69,7 +69,7 @@ function add() {
 	request.onerror = function(event) {
 	  console.log(`Unable to add data\r\n${taskinput} is already on your list! `);
 	};
-   
+
    console.log("Ending Add Function!");
 }
 
