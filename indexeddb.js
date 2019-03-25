@@ -87,9 +87,11 @@ function renderTask() {
       if (cursor) {
          // alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", Email: " + cursor.value.email);
          var node = document.createElement("LI");                 // Create a <li> node
-         var textnode = document.createTextNode(cursor.value.task );         // Create a text node
+         var textnode = document.createTextNode(cursor.value.task );   
          var imagenode = document.createElement("IMG");
+         imagenode.setAttribute("onclick", `remove(${cursor.value.id})`)
          imagenode.src = 'delte-icon.png';
+         node.setAttribute("id", `${cursor.value.id}`)
          node.appendChild(textnode);                              // Append the text to <li>
          node.appendChild(imagenode);
          list.appendChild(node);
@@ -100,34 +102,16 @@ function renderTask() {
    
 }
 
-//reads all the data in the database
-function readAll() {
-   var objectStore = db.transaction("task").objectStore("task");
-   list.innerHTML="";
 
-   //creates a cursor which iterates through each record
-   objectStore.openCursor().onsuccess = function(event) {
-      var cursor = event.target.result;
-      
-      if (cursor) {
-         // alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", taskinput: " + cursor.value.taskinput);
-         var node = document.createElement("LI");                 // Create a <li> node
-         var textnode = document.createTextNode(cursor.value.task );         // Create a text node
-         node.appendChild(textnode);                              // Append the text to <li>
-         list.appendChild(node);
-         cursor.continue();
-
-      }
-   };
-}
-
-
-function remove(item) {
-	let delid = document.querySelector("#delid").value;
+function remove(id) {
+   console.log("Called Remove Function!")
+	let delid = document.getElementById(`${id}`).value;
+   console.log(delid)
    var request = db.transaction(['task'], 'readwrite')
    .objectStore('task')
-   .delete(delid);
-   
-  }
+   .delete(id);
+
+   renderTask()   
+}   
 
 initDatabase();
