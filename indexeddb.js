@@ -46,31 +46,27 @@ function initDatabase() {
 
 //adds a record as entered in the form
 function add() {
-   console.log("Starting Add Function!")
-
-	//get a reference to the fields in html
-	let taskItem = document.querySelector('#taskinput').value;
+   let taskItem = document.querySelector('#taskinput').value;
    console.log(taskItem)
-	//alert(id + name + taskinput + age);
+   //alert(id + name + taskinput + age);
    
    //create a transaction and attempt to add data
-	var request = db.transaction([ 'task' ], 'readwrite')
-	.objectStore('task')
-	.add({ task: taskItem, id:new Date().getTime()});
-   console.log("Made request to add to db")
+   var request = db.transaction([ 'task' ], 'readwrite')
+   .objectStore('task')
+   .add({ task: taskItem, id:new Date().getTime()});
 
    //when successfully added to the database
-	request.onsuccess = function(event) {
-      console.log("Was Successful")
-		renderTask();
-	};
+   request.onsuccess = function(event) {
+      renderTask();
+   };
 
    //when not successfully added to the database
-	request.onerror = function(event) {
-	  console.log(`Unable to add data\r\n${taskinput} is already on your list! `);
-	};
+   request.onerror = function(event) {
+     console.log(`Unable to add data\r\n${taskinput} is already on your list! `);
+   };
+	//get a reference to the fields in html
+	
 
-   console.log("Ending Add Function!");
 }
 
 //not used in code example
